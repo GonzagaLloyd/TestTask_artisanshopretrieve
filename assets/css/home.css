@@ -1,0 +1,258 @@
+/* ==========================================================================
+   home.css — home page specific sections: hero banner, step navigation,
+   sticky appliance-number bar, content spacing
+   ========================================================================== */
+
+/* ---------- Hero banner ---------- */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+  overflow: hidden;
+  color: var(--color-white);
+  background-color: var(--color-primary-dark);
+}
+
+.hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Soft shade behind the transparent header so its white labels stay legible
+   over light parts of the photo at every viewport width. */
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 0;
+  height: 180px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, .45), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: calc(var(--header-height-mobile) + .5rem);
+  padding-bottom: 1rem;
+}
+
+/* Mobile-only shortcut that opens the header search */
+.hero__search-trigger {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  height: 44px;
+  margin-bottom: 1.5rem;
+  padding: 0;
+  overflow: hidden;
+  color: var(--color-text);
+  text-align: left;
+  background-color: var(--color-white);
+  border: 0;
+  border-radius: var(--radius);
+}
+
+.hero__search-icon {
+  display: flex;
+  align-items: center;
+  padding: 0 .75rem 0 1rem;
+}
+
+.hero__search-text {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: .875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body.is-search-open .hero__search-trigger {
+  visibility: hidden;
+}
+
+.hero__title {
+  max-width: 900px;
+  padding-inline: 10px;
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--color-white);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+}
+
+.hero__lead {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    min-height: 550px;
+  }
+
+  .hero__content {
+    justify-content: center;
+    padding-top: calc(var(--header-height) + 60px);
+    padding-bottom: 20px;
+  }
+
+  .hero__search-trigger {
+    display: none;
+  }
+
+  .hero__title {
+    padding-inline: 10px;
+    font-size: 36px;
+    line-height: 41px;
+  }
+
+  .hero__lead {
+    display: block;
+    max-width: 900px;
+    margin-top: 1.5rem;
+    padding-inline: 10px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-white);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+  }
+}
+
+@media (min-width: 992px) {
+  .hero__title,
+  .hero__lead {
+    padding-inline: 10px;
+  }
+}
+
+/* ---------- Step navigation at the bottom of the hero ---------- */
+.hero-steps {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-steps__list {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+
+.hero-steps__item {
+  padding: 5px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.hero-steps__item.is-active {
+  background-color: var(--color-white);
+}
+
+.hero-steps__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-white);
+  text-align: center;
+}
+
+.hero-steps__link:hover {
+  text-decoration: none;
+  opacity: .85;
+}
+
+.hero-steps__item.is-active .hero-steps__link {
+  color: var(--color-text);
+}
+
+.hero-steps__icon {
+  width: 30px;
+  height: 30px;
+}
+
+.hero-steps__icon--lg {
+  width: 40px;
+  height: 40px;
+}
+
+@media (min-width: 768px) {
+  .hero-steps__item {
+    padding: 20px;
+  }
+
+  .hero-steps__link {
+    flex-direction: row;
+    gap: 13px;
+    font-size: 20px;
+    text-align: left;
+  }
+
+  .hero-steps__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-steps__icon--lg {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* ---------- Sticky appliance-number bar ---------- */
+.appliance-bar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  padding: 4px 0;
+  background-color: var(--color-secondary);
+  transition: box-shadow var(--transition);
+}
+
+.appliance-bar.is-stuck {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+}
+
+.appliance-bar__btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: .5rem 0;
+  color: var(--color-text);
+  text-align: left;
+  background: transparent;
+  border: 0;
+  transition: color var(--transition);
+}
+
+.appliance-bar__btn:hover {
+  color: var(--color-primary);
+}
+
+.appliance-bar__label {
+  flex: 1 1 auto;
+}
+
+.appliance-bar__chevron {
+  color: #4a545b;
+}
+
+/* ---------- Content area ---------- */
+.page-content {
+  padding-top: 2rem;
+}

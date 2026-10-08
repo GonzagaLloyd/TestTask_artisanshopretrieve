@@ -1,0 +1,88 @@
+<!-- ============================================================ OFF-CANVAS PANELS -->
+<div class="offcanvas-backdrop" data-offcanvas-backdrop hidden></div>
+
+<aside class="offcanvas offcanvas--start offcanvas--menu" id="offcanvas-menu" aria-labelledby="offcanvas-menu-title" tabindex="-1" inert>
+  <div class="offcanvas__header">
+    <button class="offcanvas__close" type="button" data-offcanvas-close>
+      <svg class="icon icon--sm"><use href="#icon-close"></use></svg>
+      <span>Menü schließen</span>
+    </button>
+  </div>
+  <div class="offcanvas__body offcanvas__body--flush">
+    <h2 class="visually-hidden" id="offcanvas-menu-title">Navigation</h2>
+    <nav class="drilldown" aria-label="Mobile Navigation" data-drilldown data-drilldown-source="main-menu" data-drilldown-root-title="Kategorien"></nav>
+  </div>
+</aside>
+
+<aside class="offcanvas offcanvas--end offcanvas--appliance" id="offcanvas-appliance" aria-labelledby="appliance-title" tabindex="-1" inert>
+  <div class="offcanvas__header">
+    <button class="offcanvas__close" type="button" data-offcanvas-close>
+      <svg class="icon icon--sm"><use href="#icon-chevron-left"></use></svg>
+      <span>Weiter einkaufen</span>
+    </button>
+  </div>
+  <div class="offcanvas__body appliance-search" data-appliance-search>
+    <h2 class="appliance-search__title" id="appliance-title">Gerätenummer eingeben &amp; Ersatzteil finden</h2>
+    <p class="appliance-search__subtitle">Nur über die Eingabe der Gerätenummer können Sie feststellen ob ein Ersatzteil passend ist oder nicht.</p>
+
+    <form class="appliance-search__form" action="/search" method="get" data-search-form>
+      <label class="visually-hidden" for="appliance-number">Gerätenummer direkt eingeben</label>
+      <input class="form-control form-control--plain" id="appliance-number" type="search" name="search" placeholder="Gerätenummer direkt eingeben..." autocomplete="off" autocapitalize="off">
+      <button class="btn btn--primary btn--block" type="submit">Nach Gerät suchen</button>
+      <p class="search-form__hint" role="status" aria-live="polite"></p>
+      <p class="appliance-search__help">
+        <svg class="icon icon--sm"><use href="#icon-warning"></use></svg>
+        <button class="link-btn" type="button" aria-expanded="false" aria-controls="appliance-hint" data-collapse-toggle="appliance-hint">So findest Du das Typenschild</button>
+      </p>
+      <div class="collapse appliance-search__hint" id="appliance-hint">
+        <p>Das Typenschild finden Sie meist an der Innenseite der Tür, auf der Rückseite oder am Boden des Gerätes. Die Gerätenummer wird je nach Hersteller als E-Nummer, PNC oder Servicenummer bezeichnet.</p>
+      </div>
+    </form>
+
+    <p class="appliance-search__or">Oder</p>
+
+    <div class="appliance-search__upload">
+      <button class="btn btn--accent btn--block" type="button" data-upload-trigger>Foto Typenschild hochladen</button>
+      <label class="visually-hidden" for="model-code-image">Foto des Typenschildes auswählen</label>
+      <input class="visually-hidden" id="model-code-image" type="file" name="model-code-image" accept="image/jpeg,image/gif,image/png,image/jpg,image/webp" data-upload-input>
+      <p class="appliance-search__file" role="status" aria-live="polite" data-upload-status></p>
+    </div>
+
+    <hr class="appliance-search__divider">
+
+    <h3 class="appliance-search__title">Oder Geräteauswahl nach Kriterien</h3>
+    <div class="appliance-search__criteria">
+      <label class="visually-hidden" for="category-select">Geräte wählen</label>
+      <select class="form-select" id="category-select" name="category" data-select-category>
+        <option value="">Geräte wählen</option>
+      </select>
+      <label class="visually-hidden" for="manufacturer-select">Hersteller wählen</label>
+      <select class="form-select" id="manufacturer-select" name="manufacturer" disabled data-select-manufacturer>
+        <option value="">Hersteller wählen</option>
+      </select>
+      <label class="visually-hidden" for="model-select">Modell wählen</label>
+      <select class="form-select" id="model-select" name="model" disabled data-select-model>
+        <option value="">Modell wählen</option>
+      </select>
+      <p class="appliance-search__note" role="status" aria-live="polite" data-criteria-note></p>
+    </div>
+
+    <p class="appliance-search__footer">
+      <button class="link-btn" type="button" data-offcanvas-close>Schließen</button>
+    </p>
+  </div>
+</aside>
+
+<aside class="offcanvas offcanvas--end" id="offcanvas-cart" aria-labelledby="cart-title" tabindex="-1" inert>
+  <div class="offcanvas__header">
+    <button class="offcanvas__close" type="button" data-offcanvas-close>
+      <svg class="icon icon--sm"><use href="#icon-close"></use></svg>
+      <span>Weiter einkaufen</span>
+    </button>
+  </div>
+  <div class="offcanvas__body cart">
+    <h2 class="cart__title" id="cart-title">Warenkorb</h2>
+    <p class="cart__empty">Ihr Warenkorb ist leer.</p>
+    <button class="btn btn--primary btn--block" type="button" data-offcanvas-close>Weiter einkaufen</button>
+  </div>
+</aside>

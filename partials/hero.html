@@ -1,0 +1,46 @@
+<!-- Hero banner -->
+<section class="hero" aria-labelledby="hero-title">
+  <img class="hero__image" src="assets/images/hero-desktop.webp" alt="" width="1280" height="515" fetchpriority="high">
+  <div class="container hero__content">
+    <button class="hero__search-trigger" type="button" data-search-toggle>
+      <span class="hero__search-icon" aria-hidden="true"><svg class="icon"><use href="#icon-search"></use></svg></span>
+      <span class="hero__search-text">Nach Gerät, Modell oder Typennummer suchen</span>
+    </button>
+    <h1 class="hero__title" id="hero-title">Ersatzteile für Haushaltsgeräte<br>Ihr Schweizer Onlineshop für Ersatzteile</h1>
+    <p class="hero__lead">Haushaltsgeräte reparieren leicht gemacht: Mit unseren Ersatzteilen und Wissenssammlungen gelingt Ihnen jede Reparatur von Haushaltsgeräten.</p>
+  </div>
+
+  <nav class="hero-steps" aria-label="So funktioniert es">
+    <ol class="container hero-steps__list">
+      <li class="hero-steps__item">
+        <a class="hero-steps__link" href="/diagnose">
+          <svg class="icon hero-steps__icon"><use href="#icon-diagnose"></use></svg>
+          <span class="hero-steps__text">1. Schritt<br>Diagnose</span>
+        </a>
+      </li>
+      <li class="hero-steps__item is-active">
+        <a class="hero-steps__link" href="/" aria-current="page">
+          <svg class="icon hero-steps__icon"><use href="#icon-cart"></use></svg>
+          <span class="hero-steps__text">2. Schritt<br>Ersatzteil bestellen</span>
+        </a>
+      </li>
+      <li class="hero-steps__item">
+        <a class="hero-steps__link" href="/guidance">
+          <svg class="icon hero-steps__icon hero-steps__icon--lg"><use href="#icon-screwdriver"></use></svg>
+          <span class="hero-steps__text">3. Schritt<br>Reparieren</span>
+        </a>
+      </li>
+    </ol>
+  </nav>
+</section>
+
+<!-- Sticky appliance-number bar -->
+<div class="appliance-bar" id="appliance-bar">
+  <div class="container">
+    <button class="appliance-bar__btn" type="button" data-offcanvas-open="offcanvas-appliance" aria-controls="offcanvas-appliance" aria-expanded="false">
+      <svg class="icon"><use href="#icon-search"></use></svg>
+      <span class="appliance-bar__label">Gerätenummer eingeben &amp; Ersatzteil finden</span>
+      <svg class="icon icon--xs appliance-bar__chevron"><use href="#icon-chevron-right"></use></svg>
+    </button>
+  </div>
+</div>

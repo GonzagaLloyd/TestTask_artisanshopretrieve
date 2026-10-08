@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ersatzteile für Haushaltsgeräte | artisanshop.ch</title>
+  <meta name="description" content="Ihr Schweizer Onlineshop für Ersatzteile: Über 300.000 Ersatzteile für Haushaltsgeräte, Reparaturanleitungen und persönliche Beratung.">
+  <meta name="theme-color" content="#2b6649">
+  <link rel="icon" href="assets/images/logo-artisanshop.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+</head>
+<body class="page-home">
+  <a class="skip-link" href="#main">Zum Hauptinhalt springen</a>
+  <noscript><p class="noscript-notice">Bitte aktivieren Sie JavaScript, um diese Seite anzuzeigen.</p></noscript>
+
+  <!-- Each page section is an HTML file in partials/. include.js replaces the placeholders
+       below with that markup (bundled by `node build.js` into assets/js/partials.generated.js). -->
+  <div data-include="icons"></div>
+  <div data-include="header"></div>
+
+  <main id="main">
+    <div data-include="hero"></div>
+
+    <div class="container page-content">
+      <div data-include="categories"></div>
+      <div data-include="manufacturers"></div>
+      <div data-include="intro"></div>
+      <div data-include="reviews"></div>
+      <div data-include="guides"></div>
+      <div data-include="find-parts"></div>
+      <div data-include="benefits"></div>
+      <div data-include="contact"></div>
+      <div data-include="partners"></div>
+      <div data-include="advisor"></div>
+    </div>
+  </main>
+
+  <div data-include="footer"></div>
+
+  <button class="scroll-top" type="button" aria-label="Zurück zum Anfang der Seite springen" data-scroll-top>
+    <svg class="icon"><use href="#icon-arrow-up"></use></svg>
+  </button>
+
+  <div data-include="offcanvas"></div>
+  <div data-include="cookie-consent"></div>
+
+  <!-- Classic scripts (no bundler) on the global `ArtisanShop` namespace, started by main.js.
+       Order matters: helpers, page sections, data, renderers, then behaviour modules. -->
+  <script src="assets/js/utils.js" defer></script>
+  <script src="assets/js/partials.generated.js" defer></script>
+  <script src="assets/js/include.js" defer></script>
+  <script src="assets/data/navigation.js" defer></script>
+  <script src="assets/data/reviews.js" defer></script>
+  <script src="assets/js/navigation.js" defer></script>
+  <script src="assets/js/reviews.js" defer></script>
+  <script src="assets/js/offcanvas.js" defer></script>
+  <script src="assets/js/drilldown-menu.js" defer></script>
+  <script src="assets/js/flyout-menu.js" defer></script>
+  <script src="assets/js/header-search.js" defer></script>
+  <script src="assets/js/dropdown.js" defer></script>
+  <script src="assets/js/collapse.js" defer></script>
+  <script src="assets/js/list-filter.js" defer></script>
+  <script src="assets/js/slider.js" defer></script>
+  <script src="assets/js/appliance-search.js" defer></script>
+  <script src="assets/js/scroll-top.js" defer></script>
+  <script src="assets/js/cookie-consent.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

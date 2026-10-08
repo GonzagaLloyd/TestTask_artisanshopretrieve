@@ -1,0 +1,81 @@
+<!-- ============================================================ HEADER -->
+<header class="site-header" id="site-header">
+  <div class="container site-header__bar">
+    <button class="icon-btn site-header__menu-btn" type="button" data-offcanvas-open="offcanvas-menu" aria-controls="offcanvas-menu" aria-expanded="false" aria-label="Menü öffnen">
+      <svg class="icon"><use href="#icon-menu"></use></svg>
+    </button>
+
+    <a class="site-header__logo" href="/" title="Zur Startseite gehen">
+      <img src="assets/images/logo-artisanshop.svg" alt="artisanshop.ch – Zur Startseite" width="56" height="56">
+    </a>
+
+    <button class="site-header__nav-toggle" type="button" id="main-menu-toggle" aria-controls="main-menu" aria-expanded="false" data-flyout-toggle>
+      <svg class="icon"><use href="#icon-menu"></use></svg>
+      <span>Navigation</span>
+    </button>
+
+    <div class="site-header__search" id="header-search">
+      <form class="search-form" role="search" action="/search" method="get" data-search-form>
+        <label class="visually-hidden" for="header-search-input">Suchbegriff eingeben</label>
+        <span class="search-form__icon" aria-hidden="true"><svg class="icon"><use href="#icon-search"></use></svg></span>
+        <input class="search-form__input" id="header-search-input" type="search" name="search" placeholder="Suchbegriff eingeben ..." autocomplete="off" autocapitalize="off">
+        <button class="search-form__clear" type="button" aria-label="Eingabe löschen" hidden>
+          <svg class="icon icon--sm"><use href="#icon-close"></use></svg>
+        </button>
+        <button class="search-form__submit btn btn--primary" type="submit">Suchen</button>
+        <p class="search-form__hint" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <div class="site-header__actions">
+      <button class="icon-btn site-header__search-toggle" type="button" aria-controls="header-search" aria-expanded="false" aria-label="Suche öffnen" data-search-toggle>
+        <svg class="icon icon--open"><use href="#icon-search"></use></svg>
+        <svg class="icon icon--close"><use href="#icon-close"></use></svg>
+      </button>
+
+      <button class="site-header__action site-header__action--model" type="button" data-offcanvas-open="offcanvas-appliance" aria-controls="offcanvas-appliance" aria-expanded="false" title="So findest Du die Gerätenummer">
+        Gerätenummer<br>bestimmen
+      </button>
+
+      <button class="site-header__action site-header__action--cart" type="button" data-offcanvas-open="offcanvas-cart" aria-controls="offcanvas-cart" aria-expanded="false" aria-label="Warenkorb" title="Warenkorb">
+        <svg class="icon icon--cart"><use href="#icon-cart"></use></svg>
+      </button>
+
+      <div class="dropdown site-header__account" data-dropdown>
+        <button class="site-header__action site-header__action--account" type="button" aria-expanded="false" aria-controls="account-menu" title="Mein Konto" data-dropdown-toggle>
+          <svg class="icon icon--user"><use href="#icon-user"></use></svg>
+          <span class="site-header__action-label">Einloggen</span>
+        </button>
+        <div class="dropdown__menu dropdown__menu--end account-menu" id="account-menu" hidden>
+          <p class="account-menu__title">Ihr Konto</p>
+          <a class="btn btn--primary btn--block" href="/account/login" title="Anmelden">Anmelden</a>
+          <p class="account-menu__register">oder <a href="/account/login" title="Registrieren">registrieren</a></p>
+          <ul class="account-menu__links">
+            <li><a href="/account">Übersicht</a></li>
+            <li><a href="/account/profile">Persönliches Profil</a></li>
+            <li><a href="/account/address">Adressen</a></li>
+            <li><a href="/account/payment">Zahlungsarten</a></li>
+            <li><a href="/account/order">Bestellungen</a></li>
+            <li><a href="/account/mollie/subscriptions">Abonnements</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <a class="btn btn--outline-light site-header__register" href="/account/login" title="Registrieren">Registrieren</a>
+    </div>
+  </div>
+
+  <!-- Desktop flyout menu. Level 1 is static; levels 2 and 3 are rendered by
+       assets/js/navigation.js from assets/data/navigation.js. On small screens the
+       same tree feeds the off-canvas drill-down menu. -->
+  <nav class="flyout" id="main-menu" aria-label="Hauptnavigation" hidden>
+    <div class="container flyout__inner">
+      <ul class="flyout__list flyout__list--l1" data-nav-root>
+        <li class="flyout__item"><a class="flyout__link flyout__link--parent" href="/kueche/" aria-expanded="false"><img class="flyout__link-icon" src="assets/images/menu-kueche.svg" alt="" width="28" height="28"><span class="flyout__link-text">Küche</span><svg class="icon flyout__link-chevron" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
+        <li class="flyout__item"><a class="flyout__link flyout__link--parent" href="/haushalt/" aria-expanded="false"><img class="flyout__link-icon" src="assets/images/menu-haushalt.svg" alt="" width="28" height="28"><span class="flyout__link-text">Haushalt</span><svg class="icon flyout__link-chevron" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
+        <li class="flyout__item"><a class="flyout__link flyout__link--parent" href="/ratgeber/" aria-expanded="false"><img class="flyout__link-icon" src="assets/images/menu-ratgeber.svg" alt="" width="28" height="28"><span class="flyout__link-text">Reparaturratgeber</span><svg class="icon flyout__link-chevron" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
+        <li class="flyout__item"><a class="flyout__link flyout__link--parent" href="/anleitungen/" aria-expanded="false"><span class="flyout__link-text">Reparaturanleitungen</span><svg class="icon flyout__link-chevron" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
+      </ul>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,11 @@
+{
+  "name": "artisanshop-homepage",
+  "version": "1.0.0",
+  "description": "Static front-end recreation of the artisanshop.ch home page (HTML, CSS, vanilla JS).",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "validate": "npx --yes html-validate@8 index.html partials/*.html"
+  },
+  "license": "UNLICENSED"
+}
