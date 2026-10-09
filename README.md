@@ -1,9 +1,9 @@
-# artisanshop.ch – home page (front-end recreation)
+# artisanshop.ch – shop recreation (front end)
 
-Static recreation of the home page of **artisanshop.ch**, the Swiss online shop for household
-appliance spare parts. The original site is no longer online (the domain now serves unrelated
-content). This rebuild is based on the last complete snapshot in the Internet Archive from
-**25 August 2025**:
+Static recreation of **artisanshop.ch**, the Swiss online shop for household appliance spare
+parts. The original site and its image CDN are no longer online. This rebuild is based on the
+Internet Archive: the home page on the snapshot from **25 August 2025**, and every other page
+on the latest archived capture of that URL (2024–2025):
 
 https://web.archive.org/web/20250825132536/https://www.artisanshop.ch/
 
@@ -13,14 +13,15 @@ front-end behaviour in **plain HTML, CSS and JavaScript** – no framework, no d
 
 ## Running it
 
-Open `index.html` directly in a browser. It is ready to use; no server, install or build is needed.
-If you prefer serving it over HTTP:
+```
+npm run build     # node build.js && node generate.js  → writes dist/
+npm run serve     # serves dist/ on http://localhost:3000
+```
 
-```
-npx serve .
-# or
-python -m http.server 8080
-```
+The whole site (category, product, appliance, guide and service pages, search, cart, checkout,
+account) lives in `dist/` and needs an HTTP server, because pages use root-relative paths
+(`/kueche/kuehlschrank/`) like the original. `index.html` alone still works when opened
+straight from the file system, as before.
 
 The *Figtree* webfont is loaded from Google Fonts; without an internet connection the system
 font is used instead.
@@ -48,7 +49,12 @@ TestTask/
 │   ├── offcanvas.html         Side panels: mobile menu, appliance search, cart
 │   └── cookie-consent.html    Cookie dialog
 ├── build.js                   Bundles partials/ into assets/js/partials.generated.js (no dependencies)
-├── package.json               `npm run build`, `npm run validate`
+├── generate.js                Renders all sub pages + search index from content/ into dist/ (no dependencies)
+├── content/                   Data recovered from the Internet Archive
+│   ├── pages.json             Category, brand, listing, appliance, guide and service pages by path
+│   ├── products.json          Products (detail pages merged with data from listings)
+│   └── images.json            Original image URL → file in assets/media/
+├── package.json               `npm run build`, `npm run serve`, `npm run validate`
 ├── README.md
 └── assets/
     ├── css/
@@ -59,7 +65,9 @@ TestTask/
     │   ├── components.css     Reusable content modules: tile grids, manufacturer directory,
     │   │                      text/image blocks, review slider, contact, partner logos,
     │   │                      appliance search, cart
-    │   └── home.css           Page specific: hero banner, step navigation, sticky bar
+    │   ├── home.css           Page specific: hero banner, step navigation, sticky bar
+    │   └── pages.css          Sub pages: breadcrumb, category hero, product list and detail,
+    │                          archived text, search, forms, account, checkout
     ├── data/
     │   ├── navigation.js      Category tree of the main menu (321 entries, 3 levels)
     │   └── reviews.js         Customer reviews for the carousel
@@ -80,8 +88,15 @@ TestTask/
     │   ├── appliance-search.js Panel "Gerätenummer eingeben & Ersatzteil finden"
     │   ├── scroll-top.js      "Back to top" button, shadow of the sticky bar
     │   ├── cookie-consent.js  Cookie dialog with groups, choice stored in localStorage
+    │   ├── cart.js            Cart in localStorage: add, quantities, totals, panel + cart page
+    │   ├── account.js         Login/registration, profile, addresses, payment, orders (localStorage)
+    │   ├── checkout.js        Checkout form and order confirmation
+    │   ├── product-listing.js Manufacturer filter, sorting, pagination of product lists
+    │   ├── product-detail.js  Image gallery, filter of the compatible-appliances table
+    │   ├── search-page.js     /search over dist/assets/data/search-index.json
     │   └── main.js            Entry point: starts every module after DOMContentLoaded
-    └── images/                Logo, hero, category/brand images, icons (from the archive)
+    ├── images/                Logo, hero, category/brand images, icons (from the archive)
+    └── media/                 Product, category and article images (from the archive, WebP)
 ```
 
 ### How the pieces fit together
@@ -102,6 +117,26 @@ TestTask/
 * **Styles:** mobile-first CSS with custom properties as design tokens, BEM naming, no inline
   styles, split by concern (base → layout → components → page).
 
+### Sub pages
+
+`generate.js` renders one page per archived URL, at the original path, from `content/*.json`.
+It inlines the same partials (header, footer, panels, reviews, contact, partners) at build
+time and loads the same behaviour modules, so menus, panels and the cookie dialog work on
+every page.
+
+| Page type | Paths | Template |
+|---|---|---|
+| Category / brand landing | `/kueche/kuehlschrank/`, `/bosch/`, `/kueche/` | Hero with USPs, manufacturer tiles + directory, sub-category tiles, appliance finder, reviews, SEO text, contact, partners |
+| Product listing | `/kueche/ofen/heizelement/bosch/` | Product list incl. all products of the listings below it; manufacturer filter, sorting, pagination |
+| Product detail | `/produkte/…` | Gallery, specifications, price box with quantity + add to cart, compatible appliances (filterable), contact |
+| Appliance | `/geraet/<brand>/<model>.html` | Model header + all spare parts for the model |
+| Content | `/ratgeber/…`, `/anleitungen/…`, `/reparaturanleitungen/…`, `/service/…`, `/unternehmen/…` | Archived text (cleaned to semantic HTML), side navigation on service pages |
+| Steps | `/diagnose`, `/guidance` | Home hero with the matching step active + content |
+| Shop functions | `/search`, `/checkout/cart`, `/checkout/confirm`, `/checkout/finish`, `/account/login`, `/account/…` | Shells filled by the scripts |
+
+Products that only appear in listings (no archived detail page) still get a detail page from
+the listing data (name, numbers, price, image), so no product link is dead.
+
 ## Editing it
 
 Change the HTML in `partials/`, the styles in `assets/css/` or the scripts in `assets/js/`, then
@@ -116,8 +151,8 @@ node build.js        # or: npm run build
 
 ## Scope
 
-The complete home page was rebuilt, including every interaction that runs client-side in the
-original:
+All archived pages are rebuilt (see "Sub pages" above). The home page, including every
+interaction that runs client-side in the original:
 
 | Area | Implementation |
 |---|---|
@@ -144,9 +179,22 @@ original:
 
 ## Deliberate differences from the original
 
-* **No backend:** search, type-plate scanner, model selection and cart show status messages
-  instead of server requests. Links to sub pages (`/kueche/kuehlschrank/` etc.) keep the
-  original paths, but only the home page exists.
+* **No backend:** search runs in the browser over a generated index; cart, customer account
+  and orders are stored in `localStorage` (passwords as SHA-256 hash). The checkout validates
+  and records the order but triggers no payment and sends no e-mail. The type-plate photo
+  scanner is not connected.
+* **Archive coverage:** only pages and images that the Internet Archive captured could be
+  recovered. Links to pages that were never archived lead to the 404 page (with a search
+  field); products without an archived image show a placeholder. Listing pages show the
+  products that appeared on archived pages (the original paginated through the live
+  database), and manufacturer filters (`?manufacturerId=…`) open the unfiltered category.
+* **Text is copied verbatim** from the archive, typos and the Latin filler text that some
+  category templates of the original CMS contained included. Only pages that were never
+  archived use text that is not taken from the archive: the search results, cart, checkout
+  and account pages (Shopware 6 wording, form labels copied from the archived registration
+  page) plus the "Demo" notes in the checkout.
+* **Not reproduced on product pages:** the "GPSR Info" link (its content was loaded from the
+  server and is not archived) and the "Direkt zu PayPal" express button.
 * **JavaScript required:** sections, menu levels and reviews are inserted client-side (the
   original rendered them on the server). Without JavaScript the page shows a notice.
 * **Font:** the original uses the commercial typeface *GT Eesti*; the free, similarly
@@ -158,7 +206,6 @@ original:
   not carried over; the cookie dialog is purely functional.
 * **Images:** taken from the Internet Archive (some only exist as small thumbnails). The mobile
   hero image was not archived; the desktop image is used with `object-fit: cover`.
-* Small typos of the original were corrected ("öffnen", "Beratung über Whatsapp").
 
 ## Tested with
 

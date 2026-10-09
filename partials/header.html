@@ -39,6 +39,7 @@
 
       <button class="site-header__action site-header__action--cart" type="button" data-offcanvas-open="offcanvas-cart" aria-controls="offcanvas-cart" aria-expanded="false" aria-label="Warenkorb" title="Warenkorb">
         <svg class="icon icon--cart"><use href="#icon-cart"></use></svg>
+        <span class="cart-count" data-cart-count hidden>0</span>
       </button>
 
       <div class="dropdown site-header__account" data-dropdown>
@@ -48,8 +49,8 @@
         </button>
         <div class="dropdown__menu dropdown__menu--end account-menu" id="account-menu" hidden>
           <p class="account-menu__title">Ihr Konto</p>
-          <a class="btn btn--primary btn--block" href="/account/login" title="Anmelden">Anmelden</a>
-          <p class="account-menu__register">oder <a href="/account/login" title="Registrieren">registrieren</a></p>
+          <a class="btn btn--primary btn--block" href="/account/login" title="Anmelden" data-guest-only>Anmelden</a>
+          <p class="account-menu__register" data-guest-only>oder <a href="/account/login" title="Registrieren">registrieren</a></p>
           <ul class="account-menu__links">
             <li><a href="/account">Übersicht</a></li>
             <li><a href="/account/profile">Persönliches Profil</a></li>
@@ -57,11 +58,12 @@
             <li><a href="/account/payment">Zahlungsarten</a></li>
             <li><a href="/account/order">Bestellungen</a></li>
             <li><a href="/account/mollie/subscriptions">Abonnements</a></li>
+            <li data-user-only hidden><button class="link-btn" type="button" data-logout>Abmelden</button></li>
           </ul>
         </div>
       </div>
 
-      <a class="btn btn--outline-light site-header__register" href="/account/login" title="Registrieren">Registrieren</a>
+      <a class="btn btn--outline-light site-header__register" href="/account/login" title="Registrieren" data-guest-only>registrieren</a>
     </div>
   </div>
 

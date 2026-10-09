@@ -98,7 +98,7 @@
           <p class="contact-option__detail">- Zielgerichtet zur Antwort -</p>
         </div>
       </div>
-      <a class="btn btn--outline contact-option__btn" href="https://artisanshop.zendesk.com/hc/de/requests/new" target="_blank" rel="noopener">Kontaktformular öffnen</a>
+      <a class="btn btn--outline contact-option__btn" href="https://artisanshop.zendesk.com/hc/de/requests/new" target="_blank" rel="noopener">Kontaktformular offnen</a>
     </li>
   </ul>
 </section>
@@ -108,7 +108,7 @@
 <div class="cookie-consent" id="cookie-consent" role="dialog" aria-modal="true" aria-labelledby="cookie-consent-title" hidden data-cookie-consent>
   <div class="cookie-consent__dialog">
     <h2 class="cookie-consent__title" id="cookie-consent-title">Der Schutz Ihrer Daten ist uns wichtig!</h2>
-    <p class="cookie-consent__text">Nur durch das Akzeptieren der Cookies, können wir Ihnen den besten Funktionsumfang bieten. Wenn Sie auf „Alle Cookies akzeptieren“ klicken, stimmen Sie der Verwendung aller Cookies zu. Mit einem Klick auf „Einstellungen“ können Sie Ihre Auswahl anpassen.</p>
+    <p class="cookie-consent__text">Nur durch das Akzeptieren der Cookies, können wir Ihnen den besten Funktionsumfang bieten. Wenn Sie auf "Alle Cookies akzeptieren" klicken, stimmen Sie der Verwendung aller Cookies zu. Mit einem Klick auf "Einstellungen" können Sie die verwendeten Cookies individuell verwalten.</p>
 
     <div class="cookie-consent__settings collapse" id="cookie-settings" data-cookie-settings>
       <fieldset class="cookie-group">
@@ -182,8 +182,8 @@
     <ul class="container usp-bar__list">
       <li class="usp-bar__item"><img src="assets/images/usp-uhr.svg" alt="" width="35" height="35" loading="lazy"><span>Versand innerhalb von 24 Stunden</span></li>
       <li class="usp-bar__item"><img src="assets/images/usp-daumen-hoch.svg" alt="" width="35" height="35" loading="lazy"><span>30 Tage Geld-Zurück-Garantie</span></li>
-      <li class="usp-bar__item"><img src="assets/images/usp-burger-bar.svg" alt="" width="35" height="35" loading="lazy"><span>Über 300.000 Ersatzteile sofort ab Lager lieferbar</span></li>
-      <li class="usp-bar__item"><img src="assets/images/usp-telefon-nachricht.svg" alt="" width="35" height="35" loading="lazy"><span>Schnelle unkomplizierte Beratung über Whatsapp</span></li>
+      <li class="usp-bar__item"><img src="assets/images/usp-burger-bar.svg" alt="" width="35" height="35" loading="lazy"><span>Über 300.000 Ersatzteile Sofort ab Lager lieferbar</span></li>
+      <li class="usp-bar__item"><img src="assets/images/usp-telefon-nachricht.svg" alt="" width="35" height="35" loading="lazy"><span>Schnelle unkomplizierte Beratungüber Whatsapp</span></li>
     </ul>
   </section>
 
@@ -311,6 +311,7 @@
 
       <button class="site-header__action site-header__action--cart" type="button" data-offcanvas-open="offcanvas-cart" aria-controls="offcanvas-cart" aria-expanded="false" aria-label="Warenkorb" title="Warenkorb">
         <svg class="icon icon--cart"><use href="#icon-cart"></use></svg>
+        <span class="cart-count" data-cart-count hidden>0</span>
       </button>
 
       <div class="dropdown site-header__account" data-dropdown>
@@ -320,8 +321,8 @@
         </button>
         <div class="dropdown__menu dropdown__menu--end account-menu" id="account-menu" hidden>
           <p class="account-menu__title">Ihr Konto</p>
-          <a class="btn btn--primary btn--block" href="/account/login" title="Anmelden">Anmelden</a>
-          <p class="account-menu__register">oder <a href="/account/login" title="Registrieren">registrieren</a></p>
+          <a class="btn btn--primary btn--block" href="/account/login" title="Anmelden" data-guest-only>Anmelden</a>
+          <p class="account-menu__register" data-guest-only>oder <a href="/account/login" title="Registrieren">registrieren</a></p>
           <ul class="account-menu__links">
             <li><a href="/account">Übersicht</a></li>
             <li><a href="/account/profile">Persönliches Profil</a></li>
@@ -329,11 +330,12 @@
             <li><a href="/account/payment">Zahlungsarten</a></li>
             <li><a href="/account/order">Bestellungen</a></li>
             <li><a href="/account/mollie/subscriptions">Abonnements</a></li>
+            <li data-user-only hidden><button class="link-btn" type="button" data-logout>Abmelden</button></li>
           </ul>
         </div>
       </div>
 
-      <a class="btn btn--outline-light site-header__register" href="/account/login" title="Registrieren">Registrieren</a>
+      <a class="btn btn--outline-light site-header__register" href="/account/login" title="Registrieren" data-guest-only>registrieren</a>
     </div>
   </div>
 
@@ -444,14 +446,14 @@
     <li><a class="tile tile--brand" href="/gaggenau/" title="Gaggenau"><img src="assets/images/brand-gaggenau.webp" alt="Gaggenau" width="300" height="63" loading="lazy"></a></li>
     <li><a class="tile tile--brand" href="/bosch/" title="Bosch"><img src="assets/images/brand-bosch.webp" alt="Bosch" width="300" height="63" loading="lazy"></a></li>
     <li><a class="tile tile--brand" href="/aeg/" title="AEG"><img src="assets/images/brand-aeg.webp" alt="AEG" width="300" height="63" loading="lazy"></a></li>
-    <li><a class="tile tile--brand" href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=cea0f180215b4f344be537b02a733b51"><span class="tile__label">AEG Electrolux</span></a></li>
+    <li><a class="tile tile--brand" href="/search?search=AEG+Electrolux"><span class="tile__label">AEG Electrolux</span></a></li>
     <li><a class="tile tile--brand" href="/electrolux/" title="Electrolux"><img src="assets/images/brand-electrolux.webp" alt="Electrolux" width="300" height="84" loading="lazy"></a></li>
     <li><a class="tile tile--brand" href="/beko/" title="Beko"><img src="assets/images/brand-beko.webp" alt="Beko" width="300" height="63" loading="lazy"></a></li>
     <li><a class="tile tile--brand" href="/zanussi/" title="Zanussi"><img src="assets/images/brand-zanussi.webp" alt="Zanussi" width="300" height="63" loading="lazy"></a></li>
-    <li><a class="tile tile--brand" href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=0191e684af4d7381903a9db6aeb2c838"><span class="tile__label">Hisense Gorenje</span></a></li>
+    <li><a class="tile tile--brand" href="/search?search=Hisense+Gorenje"><span class="tile__label">Hisense Gorenje</span></a></li>
     <li><a class="tile tile--brand" href="/samsung/" title="Samsung"><img src="assets/images/brand-samsung.webp" alt="Samsung" width="300" height="63" loading="lazy"></a></li>
     <li><a class="tile tile--brand" href="/gorenje/" title="Gorenje"><img src="assets/images/brand-gorenje.webp" alt="Gorenje" width="1114" height="462" loading="lazy"></a></li>
-    <li><a class="tile tile--brand" href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=77aae350028a92cd4832c51a59ff70b4"><span class="tile__label">Indesit</span></a></li>
+    <li><a class="tile tile--brand" href="/search?search=Indesit"><span class="tile__label">Indesit</span></a></li>
     <li><a class="tile tile--brand" href="/whirlpool/" title="Whirlpool"><img src="assets/images/brand-whirlpool.webp" alt="Whirlpool" width="300" height="63" loading="lazy"></a></li>
     <li><a class="tile tile--brand" href="/bauknecht/" title="Bauknecht"><img src="assets/images/brand-bauknecht.webp" alt="Bauknecht" width="300" height="63" loading="lazy"></a></li>
     <li><a class="tile tile--brand" href="/whirlpool-indesit/"><span class="tile__label">Whirlpool Indesit</span></a></li>
@@ -475,77 +477,77 @@
       <li><a href="/gaggenau/">Gaggenau</a></li>
       <li><a href="/bosch/">Bosch</a></li>
       <li><a href="/aeg/">AEG</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=cea0f180215b4f344be537b02a733b51">AEG Electrolux</a></li>
+      <li><a href="/search?search=AEG+Electrolux">AEG Electrolux</a></li>
       <li><a href="/electrolux/">Electrolux</a></li>
       <li><a href="/beko/">Beko</a></li>
       <li><a href="/zanussi/">Zanussi</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=0191e684af4d7381903a9db6aeb2c838">Hisense Gorenje</a></li>
+      <li><a href="/search?search=Hisense+Gorenje">Hisense Gorenje</a></li>
       <li><a href="/samsung/">Samsung</a></li>
       <li><a href="/gorenje/">Gorenje</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=77aae350028a92cd4832c51a59ff70b4">Indesit</a></li>
+      <li><a href="/search?search=Indesit">Indesit</a></li>
       <li><a href="/whirlpool/">Whirlpool</a></li>
       <li><a href="/bauknecht/">Bauknecht</a></li>
       <li><a href="/whirlpool-indesit/">Whirlpool Indesit</a></li>
       <li><a href="/privileg/">Privileg</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=a6596eebfd87efaaf16a73adb1e00284">Vestel</a></li>
+      <li><a href="/search?search=Vestel">Vestel</a></li>
       <li><a href="/haier/">Haier</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=7209c9c53029c01ff7df54f2f77d602d">Hoover</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=711c7ed5689dea79c753e5c0c36bee03">Smeg</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=8b85b11443ca8833de89e8b45d93e4e9">Candy Hoover</a></li>
+      <li><a href="/search?search=Hoover">Hoover</a></li>
+      <li><a href="/search?search=Smeg">Smeg</a></li>
+      <li><a href="/search?search=Candy+Hoover">Candy Hoover</a></li>
       <li><a href="/candy/">Candy</a></li>
       <li><a href="/amica/">Amica</a></li>
       <li><a href="/delonghi/">Delonghi</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=91ca03cf546e44a2383115e41f46be6c">SEB</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=19cfebb99b36347c19498558faa327d6">Krups</a></li>
+      <li><a href="/search?search=SEB">SEB</a></li>
+      <li><a href="/search?search=Krups">Krups</a></li>
       <li><a href="/lg/">LG</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=2da860f7216f34598e5cdc6fd7e3098c">Sony</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=107cd4cde6c75f4be8eb15f6397fea69">Brandt</a></li>
+      <li><a href="/search?search=Sony">Sony</a></li>
+      <li><a href="/search?search=Brandt">Brandt</a></li>
       <li><a href="/midea/">Midea</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=e0b1ea376ea1bb34ca47fc99a51fd4aa">Saeco</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=6ba22c6b327803e13ee467acbe2b8f42">Philips Saeco</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=195e3a0739a0ee59993d332c2ece4f1c">Gaggia</a></li>
+      <li><a href="/search?search=Saeco">Saeco</a></li>
+      <li><a href="/search?search=Philips+Saeco">Philips Saeco</a></li>
+      <li><a href="/search?search=Gaggia">Gaggia</a></li>
       <li><a href="/liebherr/">Liebherr</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=d47c174ed277bdf06cfc72763ab7970c">COM</a></li>
+      <li><a href="/search?search=COM">COM</a></li>
       <li><a href="/panasonic/">Panasonic</a></li>
       <li><a href="/philips/">Philips</a></li>
       <li><a href="/kueppersbusch/">Küppersbusch</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=e059c501d0dee783aa66686747ce753f">Elica</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=1fafb49d0510b71e777743a9b4e9b2b6">Acer</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=1312d0b5f27498b8a2a48c9cfb34f86d">Teka</a></li>
+      <li><a href="/search?search=Elica">Elica</a></li>
+      <li><a href="/search?search=Acer">Acer</a></li>
+      <li><a href="/search?search=Teka">Teka</a></li>
       <li><a href="/dometic/">Dometic</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=b1b0f27cdd8afdd00a5a0c4bf45ead10">TP Vision</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=b74de92e0bd5743e84cd3c4aeb095ad5">Mobilize</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=172b4e4924684b4939c02d42ad375c18">Sogedis</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=43bff6f3c86b760487f9c7c5b3f5d95c">Nilfisk</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=5ed0b5f41b21804e51e82664dc24e2dd">ASUS</a></li>
+      <li><a href="/search?search=TP+Vision">TP Vision</a></li>
+      <li><a href="/search?search=Mobilize">Mobilize</a></li>
+      <li><a href="/search?search=Sogedis">Sogedis</a></li>
+      <li><a href="/search?search=Nilfisk">Nilfisk</a></li>
+      <li><a href="/search?search=ASUS">ASUS</a></li>
       <li><a href="/soflow/">SoFlow</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=47db6b980fe9e928299d290efaab7b84">Hewlett Packard</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=0194bc4003a47119a9e969a4eb7bc8e5">Classic</a></li>
+      <li><a href="/search?search=Hewlett+Packard">Hewlett Packard</a></li>
+      <li><a href="/search?search=Classic">Classic</a></li>
       <li><a href="/braun/">Braun</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=677a3cc8055a030993e9f6b87947ba0a">Black &amp; Decker</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=d4882c73972d620f75fd403a0582b0ce">Homa</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=60c17eb98355db0fe5ce016db6c6f444">Sharp</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=bd27ea37e4ea30addabff7c313700eb0">Atag</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=57040fe2fe7a0a1e9ab043ae1f5d9845">Lenovo</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=403ca5df590f54cff2a36496f49b015f">Grundig</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=aa46613f4a470bc4c7a4c2b13d04e9dd">Hisense</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=7f3d81afcac800334f650090bd23b1e6">Yamaha</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=3bde2e4c7237eed66fc4ddd5e0cde649">Magimix</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=77a41e1343ee8b31825755c1f09a60c7">Airlux</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=0b9869f6d24ac788d63fcec7cc136bc8">Faber Robolin</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=a770646d47b9813ecf407e51c3d8d5cd">Panzerglass</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=1ad2a46be1b9919896b373d548a96ff7">Domena</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=53ce9a6f5d2afcb220c678bd0eafcad5">Atlan</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=0192935eb1a873d985d6e69f6f4ccb94">Segway Ninebot</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=4ed8d1aa360d7ac6bd3af25febc2b972">Eurosav</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=af3cc5539c9f0bb0d32ef000c3f7ee5f">Bertazzoni</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=04c74ad625352f7093356e441ef69610">DELL</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=0b66e90f45c7f725f30c5484c5eef71a">Sound United</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=fd1d71520ca57a0db59a6aeff2206990">Melitta</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=c1e8e7e7170ee9d9d7cc4e06af7f79d1">Oppo</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=814e4406fcba751df6b32455114f082d">KEG</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=0195fc8b47717085a6f91b687e17e547">GROUPE SEB</a></li>
-      <li><a href="/navigation/9cd003f488794a62bcdc9b48911f4d0c?manufacturerId=910b907668450044fb445ac14e8e48ff">Oneplus</a></li>
+      <li><a href="/search?search=Black+&amp;+Decker">Black &amp; Decker</a></li>
+      <li><a href="/search?search=Homa">Homa</a></li>
+      <li><a href="/search?search=Sharp">Sharp</a></li>
+      <li><a href="/search?search=Atag">Atag</a></li>
+      <li><a href="/search?search=Lenovo">Lenovo</a></li>
+      <li><a href="/search?search=Grundig">Grundig</a></li>
+      <li><a href="/search?search=Hisense">Hisense</a></li>
+      <li><a href="/search?search=Yamaha">Yamaha</a></li>
+      <li><a href="/search?search=Magimix">Magimix</a></li>
+      <li><a href="/search?search=Airlux">Airlux</a></li>
+      <li><a href="/search?search=Faber+Robolin">Faber Robolin</a></li>
+      <li><a href="/search?search=Panzerglass">Panzerglass</a></li>
+      <li><a href="/search?search=Domena">Domena</a></li>
+      <li><a href="/search?search=Atlan">Atlan</a></li>
+      <li><a href="/search?search=Segway+Ninebot">Segway Ninebot</a></li>
+      <li><a href="/search?search=Eurosav">Eurosav</a></li>
+      <li><a href="/search?search=Bertazzoni">Bertazzoni</a></li>
+      <li><a href="/search?search=DELL">DELL</a></li>
+      <li><a href="/search?search=Sound+United">Sound United</a></li>
+      <li><a href="/search?search=Melitta">Melitta</a></li>
+      <li><a href="/search?search=Oppo">Oppo</a></li>
+      <li><a href="/search?search=KEG">KEG</a></li>
+      <li><a href="/search?search=GROUPE+SEB">GROUPE SEB</a></li>
+      <li><a href="/search?search=Oneplus">Oneplus</a></li>
     </ul>
     <p class="brand-list__empty" role="status" aria-live="polite" hidden>Kein Hersteller gefunden.</p>
   </div>
@@ -586,11 +588,8 @@
       <p class="search-form__hint" role="status" aria-live="polite"></p>
       <p class="appliance-search__help">
         <svg class="icon icon--sm"><use href="#icon-warning"></use></svg>
-        <button class="link-btn" type="button" aria-expanded="false" aria-controls="appliance-hint" data-collapse-toggle="appliance-hint">So findest Du das Typenschild</button>
+        <a href="https://artisanshop.zendesk.com/hc/de-ch/sections/22166580766865-Das-Typenschild-meines-Ger%C3%A4tes-finden" target="_blank" rel="noopener" title="So findest Du das Typenschild">So findest Du das Typenschild</a>
       </p>
-      <div class="collapse appliance-search__hint" id="appliance-hint">
-        <p>Das Typenschild finden Sie meist an der Innenseite der Tür, auf der Rückseite oder am Boden des Gerätes. Die Gerätenummer wird je nach Hersteller als E-Nummer, PNC oder Servicenummer bezeichnet.</p>
-      </div>
     </form>
 
     <p class="appliance-search__or">Oder</p>
@@ -636,8 +635,8 @@
   </div>
   <div class="offcanvas__body cart">
     <h2 class="cart__title" id="cart-title">Warenkorb</h2>
-    <p class="cart__empty">Ihr Warenkorb ist leer.</p>
-    <button class="btn btn--primary btn--block" type="button" data-offcanvas-close>Weiter einkaufen</button>
+    <!-- Filled by assets/js/cart.js -->
+    <div data-cart-view="offcanvas"><p class="cart__empty">Ihr Warenkorb ist leer.</p></div>
   </div>
 </aside>
 `,

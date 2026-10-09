@@ -32,11 +32,8 @@
       <p class="search-form__hint" role="status" aria-live="polite"></p>
       <p class="appliance-search__help">
         <svg class="icon icon--sm"><use href="#icon-warning"></use></svg>
-        <button class="link-btn" type="button" aria-expanded="false" aria-controls="appliance-hint" data-collapse-toggle="appliance-hint">So findest Du das Typenschild</button>
+        <a href="https://artisanshop.zendesk.com/hc/de-ch/sections/22166580766865-Das-Typenschild-meines-Ger%C3%A4tes-finden" target="_blank" rel="noopener" title="So findest Du das Typenschild">So findest Du das Typenschild</a>
       </p>
-      <div class="collapse appliance-search__hint" id="appliance-hint">
-        <p>Das Typenschild finden Sie meist an der Innenseite der Tür, auf der Rückseite oder am Boden des Gerätes. Die Gerätenummer wird je nach Hersteller als E-Nummer, PNC oder Servicenummer bezeichnet.</p>
-      </div>
     </form>
 
     <p class="appliance-search__or">Oder</p>
@@ -82,7 +79,7 @@
   </div>
   <div class="offcanvas__body cart">
     <h2 class="cart__title" id="cart-title">Warenkorb</h2>
-    <p class="cart__empty">Ihr Warenkorb ist leer.</p>
-    <button class="btn btn--primary btn--block" type="button" data-offcanvas-close>Weiter einkaufen</button>
+    <!-- Filled by assets/js/cart.js -->
+    <div data-cart-view="offcanvas"><p class="cart__empty">Ihr Warenkorb ist leer.</p></div>
   </div>
 </aside>
