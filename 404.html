@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Seite nicht gefunden | artisanshop.ch</title>
   <meta name="robots" content="noindex">
-  <link rel="icon" href="assets/images/logo-artisanshop.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/logo-artisanshop.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap">
-  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
   <style>
     .error-page {
       display: flex;
@@ -27,6 +27,13 @@
       margin-bottom: 1.5rem;
     }
 
+    .error-page__search {
+      display: flex;
+      gap: .5rem;
+      width: min(100%, 32rem);
+      margin-bottom: 1rem;
+    }
+
     .error-page p {
       max-width: 36rem;
       margin: 1rem 0 1.5rem;
@@ -36,10 +43,15 @@
 </head>
 <body>
   <main class="error-page">
-    <img src="assets/images/logo-artisanshop.svg" alt="artisanshop.ch">
+    <img src="/assets/images/logo-artisanshop.svg" alt="artisanshop.ch">
     <h1>Diese Seite gibt es hier nicht</h1>
-    <p>Diese Demo bildet nur die Startseite von artisanshop.ch nach. Kategorie-, Geräte- und Serviceseiten des ursprünglichen Shops sind nicht enthalten.</p>
-    <a class="btn btn--primary" href="/">Zur Startseite</a>
+    <p>Diese Nachbildung enthält alle Seiten von artisanshop.ch, die im Internet Archive gesichert wurden. Diese Seite gehört nicht dazu. Suchen Sie nach dem Artikel oder Ihrer Gerätenummer.</p>
+    <form class="error-page__search" action="/search" method="get" role="search">
+      <label class="visually-hidden" for="error-search">Suchbegriff</label>
+      <input class="form-control" id="error-search" type="search" name="search" placeholder="Artikel, Ersatzteil- oder Gerätenummer..." required minlength="3">
+      <button class="btn btn--primary" type="submit">Suchen</button>
+    </form>
+    <a class="btn btn--secondary" href="/">Zur Startseite</a>
   </main>
 </body>
 </html>

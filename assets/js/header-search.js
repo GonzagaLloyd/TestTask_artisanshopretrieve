@@ -4,8 +4,9 @@
  * - On small screens the field is collapsed and toggled by the search icon
  *   (and by the search shortcut inside the hero banner).
  * - The clear button appears as soon as the field has a value.
- * - There is no search backend in this static recreation, so submitting a
- *   query shows a status message instead of navigating to /search.
+ * - Submitting opens /search?search=… (assets/js/search-page.js). When the
+ *   page is opened from the file system there is no search page, so a status
+ *   message is shown instead.
  */
 (function (ns) {
   'use strict';
@@ -77,8 +78,11 @@
       }
 
       form.addEventListener('submit', function (event) {
-        event.preventDefault();
         var query = field.value.trim();
+        if (query.length >= 3 && window.location.protocol !== 'file:') {
+          return; // normal GET to /search
+        }
+        event.preventDefault();
         if (!hint) {
           return;
         }
@@ -87,7 +91,7 @@
           field.focus();
           return;
         }
-        hint.textContent = 'Die Suche nach „' + query + '“ ist in dieser statischen Demo nicht verfügbar.';
+        hint.textContent = 'Die Suche benötigt einen Webserver (npm run serve), die Datei wurde direkt geöffnet.';
       });
 
       field.addEventListener('input', function () {
