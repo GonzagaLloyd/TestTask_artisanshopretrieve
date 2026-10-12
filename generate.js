@@ -33,7 +33,8 @@ const SCRIPTS = [
   'js/offcanvas.js', 'js/drilldown-menu.js', 'js/flyout-menu.js', 'js/header-search.js', 'js/dropdown.js',
   'js/collapse.js', 'js/list-filter.js', 'js/slider.js', 'js/appliance-search.js', 'js/scroll-top.js',
   'js/cookie-consent.js', 'js/cart.js', 'js/account.js', 'js/product-listing.js', 'js/product-detail.js',
-  'js/search-page.js', 'js/checkout.js', 'js/main.js'
+  'js/search-page.js', 'js/checkout.js', 'js/wishlist.js', 'js/recently-viewed.js', 'js/search-suggest.js',
+  'js/my-appliances.js', 'js/order-tracking.js', 'js/main.js'
 ];
 
 function layout({ title, description, bodyClass, content, robots }) {
@@ -54,6 +55,7 @@ function layout({ title, description, bodyClass, content, robots }) {
   <link rel="stylesheet" href="/assets/css/layout.css">
   <link rel="stylesheet" href="/assets/css/components.css">
   <link rel="stylesheet" href="/assets/css/pages.css">
+  <link rel="stylesheet" href="/assets/css/features.css">
   ${bodyClass.includes('page-step') ? '<link rel="stylesheet" href="/assets/css/home.css">' : ''}
 </head>
 <body class="${bodyClass}">
@@ -108,9 +110,19 @@ function cartPayload(p) {
   return esc(JSON.stringify({ number: p.number, name: p.name, price: p.price, image: productImage(p), path: p.path }));
 }
 
+// Heart button: wishlist.js toggles the product on the Merkliste
+const heartButton = (p, extra = '') => `<button class="wishlist-btn${extra}" type="button" data-wishlist="${cartPayload(p)}" aria-pressed="false" aria-label="Auf die Merkliste setzen" title="Auf die Merkliste setzen"><svg class="icon" aria-hidden="true"><use href="#icon-heart"></use></svg></button>`;
+
+// "Zuletzt angesehen" strip, filled by recently-viewed.js
+const recentStrip = (exclude = '') => `<section class="recent" data-recently-viewed data-exclude="${esc(exclude)}" aria-labelledby="recent-title" hidden>
+  <h2 class="section__title" id="recent-title">Zuletzt angesehen</h2>
+  <ul class="recent__list" data-recently-viewed-list></ul>
+</section>`;
+
 function productCard(p) {
   return `<li class="product-card" data-name="${esc(p.name)}" data-price="${p.price == null ? '' : p.price}" data-manufacturer="${esc(p.manufacturer || '')}" data-category="${esc(p.listedIn || '')}" data-number="${esc([p.number, p.mpn].filter(Boolean).join(' '))}" data-position="${esc(p.position || '')}">
   <a class="product-card__image" href="${esc(p.path)}" tabindex="-1" aria-hidden="true"><img src="${productImage(p)}" alt="${esc(p.name)}" width="160" height="160" loading="lazy"></a>
+  ${heartButton(p)}
   <div class="product-card__body">
     <a class="product-card__name" href="${esc(p.path)}">${esc(p.name)}</a>
     ${p.badge ? `<span class="tag-badge">${esc(p.badge)}</span>` : ''}
@@ -159,6 +171,17 @@ function productListing(list, id, { filters = [], finder = false, category = '',
     <div class="collapse listing-filters__body" id="${id}-filters">
       ${filterGroup('category', 'Kategorien', values('listedIn', 'Kategorien'))}
       ${filterGroup('manufacturer', 'Hersteller', values('manufacturer', 'Hersteller'))}
+      ${list.some((p) => p.price != null) ? `<fieldset class="listing-filters__group">
+        <legend class="listing-filters__legend">Preis (CHF)</legend>
+        <div class="price-range">
+          <label class="visually-hidden" for="${id}-price-min">Preis von</label>
+          <input class="form-control" id="${id}-price-min" type="number" min="0" step="0.01" inputmode="decimal" placeholder="von" data-listing-price="min">
+          <span aria-hidden="true">–</span>
+          <label class="visually-hidden" for="${id}-price-max">Preis bis</label>
+          <input class="form-control" id="${id}-price-max" type="number" min="0" step="0.01" inputmode="decimal" placeholder="bis" data-listing-price="max">
+        </div>
+      </fieldset>` : ''}
+      <button class="btn btn--outline btn--sm listing-filters__reset" type="button" data-listing-reset>Filter zurücksetzen</button>
     </div>
   </aside>
   <div class="product-listing__main">
@@ -354,6 +377,7 @@ function appliancePage(page) {
   <div class="appliance-main">
   <header class="appliance-header">
     <h1 class="page-title">${esc(page.h1)}</h1>
+    <button class="btn btn--outline btn--sm save-appliance" type="button" data-save-appliance="${esc(JSON.stringify({ name: page.h1.replace(/ Ersatzteile$/, ''), path: page.path, category: (page.breadcrumb[page.breadcrumb.length - 2] || {}).name || '' }))}" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#icon-heart"></use></svg><span>Gerät speichern</span></button>
     ${media(page.logo) ? `<img class="appliance-header__logo" src="${page.logo}" alt="" width="200" height="42">` : ''}
     ${page.badge ? `<p class="tag-badge tag-badge--success">${esc(page.badge)}</p>` : ''}
     ${(page.infos || []).length ? `<table class="appliance-header__infos"><tbody>${page.infos.map(([k, v], i) => (Array.isArray(v)
@@ -455,7 +479,7 @@ function productPage(p) {
     description: p.metaDescription || '',
     bodyClass: 'page-product',
     content: `${breadcrumb(crumbs)}
-<div class="container product-detail">
+<div class="container product-detail" data-track-product="${cartPayload(p)}">
   <div class="product-detail__main">
     ${p.badge ? `<span class="tag-badge product-detail__badge">${esc(p.badge)}</span>` : ''}
     ${gallery}
@@ -474,6 +498,7 @@ function productPage(p) {
       ${p.mpn ? `<tr><th scope="row">Ersatzteilenummer</th><td>${esc(p.mpn)}</td></tr>` : ''}
     </tbody></table>
     ${p.price != null ? `<button class="btn btn--primary btn--block" type="button" data-add-to-cart="${cartPayload(p)}">In den Warenkorb</button>` : ''}
+    <button class="btn btn--outline btn--block wishlist-toggle" type="button" data-wishlist="${cartPayload(p)}" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#icon-heart"></use></svg><span class="wishlist-toggle__off">Auf die Merkliste</span><span class="wishlist-toggle__on">Auf der Merkliste</span></button>
     ${(theme.payments || []).length ? `<ul class="buy-box__payments">${theme.payments.filter((i) => media(i.src)).map((i) => `<li><img src="${i.src}" alt="${esc(i.alt)}" width="48" height="30" loading="lazy"></li>`).join('')}</ul>` : ''}
   </aside>
 </div>
@@ -505,6 +530,7 @@ function productPage(p) {
       </div>
     </div>
   </section>
+  ${recentStrip(p.number)}
   ${partial('reviews')}
 </div>`
   };
@@ -539,7 +565,7 @@ function stepPage(page) {
 
 const accountNav = (current) => `<nav class="account-nav" aria-label="Mein Konto">
   <h2 class="account-nav__title">Mein Konto</h2>
-  <ul>${[['/account', 'Übersicht'], ['/account/profile', 'Persönliches Profil'], ['/account/address', 'Adressen'], ['/account/payment', 'Zahlungsarten'], ['/account/order', 'Bestellungen'], ['/account/mollie/subscriptions', 'Abonnements']]
+  <ul>${[['/account', 'Übersicht'], ['/account/profile', 'Persönliches Profil'], ['/account/address', 'Adressen'], ['/account/payment', 'Zahlungsarten'], ['/account/order', 'Bestellungen'], ['/bestellung-verfolgen', 'Bestellung verfolgen'], ['/wishlist', 'Merkliste'], ['/account/mollie/subscriptions', 'Abonnements']]
     .map(([href, label]) => `<li><a href="${href}"${href === current ? ' aria-current="page"' : ''}>${label}</a></li>`).join('')}
     <li><button class="link-btn" type="button" data-logout>Abmelden</button></li></ul>
 </nav>`;
@@ -579,6 +605,33 @@ const addressFields = (prefix = '', extra = false) => `
       <label class="form-field"><span>Land*</span><select class="form-select" name="${prefix}country" required><option>Schweiz</option></select></label>`;
 
 const SHOP_PAGES = {
+  '/wishlist': () => ({
+    title: 'Merkliste | artisanshop.ch', robots: 'noindex', bodyClass: 'page-wishlist',
+    content: `${breadcrumb([{ name: 'Home', path: '/' }, { name: 'Merkliste', path: '' }])}
+<div class="container">
+  <h1 class="page-title">Merkliste</h1>
+  <div data-wishlist-view></div>
+  <section class="my-appliances" data-my-appliances-section aria-labelledby="my-appliances-title" hidden>
+    <h2 class="section__title" id="my-appliances-title">Meine Geräte</h2>
+    <ul class="my-appliances__list" data-my-appliances></ul>
+  </section>
+  ${recentStrip()}
+</div>`
+  }),
+  '/bestellung-verfolgen': () => ({
+    title: 'Bestellung verfolgen | artisanshop.ch', robots: 'noindex', bodyClass: 'page-tracking',
+    content: `${breadcrumb([{ name: 'Home', path: '/' }, { name: 'Bestellung verfolgen', path: '' }])}
+<div class="container tracking">
+  <h1 class="page-title">Bestellung verfolgen</h1>
+  <p>Geben Sie Ihre Bestellnummer ein, um den Status Ihrer Bestellung zu sehen. Sie finden die Nummer in der Bestätigung nach dem Kauf und unter „Mein Konto“.</p>
+  <form class="tracking__form" data-track-form role="search">
+    <label class="visually-hidden" for="track-order">Bestellnummer</label>
+    <input class="form-control" id="track-order" name="order" type="text" inputmode="numeric" placeholder="Bestellnummer" required autocomplete="off">
+    <button class="btn btn--primary" type="submit">Verfolgen</button>
+  </form>
+  <div data-track-result aria-live="polite"></div>
+</div>`
+  }),
   '/search': () => ({
     title: 'artisanshop.ch', robots: 'noindex', bodyClass: 'page-search',
     content: `${breadcrumb([{ name: 'Home', path: '/' }, { name: 'Suchen', path: '' }])}
@@ -599,6 +652,7 @@ const SHOP_PAGES = {
 <div class="container">
   <h1 class="page-title">Warenkorb</h1>
   <div class="cart-page" data-cart-view="page"></div>
+  ${recentStrip()}
 </div>`
   }),
   '/checkout/confirm': () => ({
@@ -745,11 +799,19 @@ function outFile(urlPath) {
   return path.join(DIST, clean, 'index.html');
 }
 
+// Several archived pages only carry the shop name as title; use the page heading instead.
+function pageTitle(title, content) {
+  if (title && !/^artisanshop\.ch(\s*[-|]\s*Ersatzteile.*)?$/i.test(title.trim())) return title;
+  const h1 = (content.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || [])[1];
+  const text = h1 ? h1.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() : '';
+  return text ? `${text} | artisanshop.ch` : title || 'artisanshop.ch';
+}
+
 function write(urlPath, page, data) {
   const file = outFile(urlPath);
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, layout({
-    title: page.title || data.title || 'artisanshop.ch',
+    title: pageTitle(page.title || data.title, page.content),
     description: page.description || data.metaDescription || '',
     robots: page.robots,
     bodyClass: page.bodyClass,
@@ -786,7 +848,7 @@ const index = {
   products: Object.values(products).filter((p) => p.path && p.name)
     .map((p) => [p.name, p.number, p.mpn || '', p.manufacturer || '', p.price == null ? null : p.price, p.path, productImage(p)]),
   appliances: Object.values(pages).filter((p) => p.type === 'appliance').map((p) => [p.h1.replace(/ Ersatzteile$/, ''), p.path, (p.breadcrumb[p.breadcrumb.length - 2] || {}).name || '']),
-  pages: Object.values(pages).filter((p) => p.type !== 'appliance').map((p) => [p.title.split(' | ')[0], p.path])
+  pages: Object.values(pages).filter((p) => p.type !== 'appliance').map((p) => [(p.h1 || p.title).split(' | ')[0], p.path])
 };
 fs.mkdirSync(path.join(DIST, 'assets', 'data'), { recursive: true });
 fs.writeFileSync(path.join(DIST, 'assets', 'data', 'search-index.json'), JSON.stringify(index));

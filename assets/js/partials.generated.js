@@ -309,6 +309,11 @@
         Gerätenummer<br>bestimmen
       </button>
 
+      <a class="site-header__action site-header__action--wishlist" href="/wishlist" aria-label="Merkliste" title="Merkliste">
+        <svg class="icon icon--cart" aria-hidden="true"><use href="#icon-heart"></use></svg>
+        <span class="cart-count" data-wishlist-count hidden>0</span>
+      </a>
+
       <button class="site-header__action site-header__action--cart" type="button" data-offcanvas-open="offcanvas-cart" aria-controls="offcanvas-cart" aria-expanded="false" aria-label="Warenkorb" title="Warenkorb">
         <svg class="icon icon--cart"><use href="#icon-cart"></use></svg>
         <span class="cart-count" data-cart-count hidden>0</span>
@@ -329,6 +334,8 @@
             <li><a href="/account/address">Adressen</a></li>
             <li><a href="/account/payment">Zahlungsarten</a></li>
             <li><a href="/account/order">Bestellungen</a></li>
+            <li><a href="/bestellung-verfolgen">Bestellung verfolgen</a></li>
+            <li><a href="/wishlist">Merkliste</a></li>
             <li><a href="/account/mollie/subscriptions">Abonnements</a></li>
             <li data-user-only hidden><button class="link-btn" type="button" data-logout>Abmelden</button></li>
           </ul>
@@ -414,6 +421,7 @@
   <symbol id="icon-chevron-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></symbol>
   <symbol id="icon-chevron-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 9l7 7 7-7"/></symbol>
   <symbol id="icon-arrow-up" viewBox="0 0 24 24"><path d="M13 3.4142V23c0 .5523-.4477 1-1 1s-1-.4477-1-1V3.4142l-4.2929 4.293c-.3905.3904-1.0237.3904-1.4142 0-.3905-.3906-.3905-1.0238 0-1.4143l6-6c.3905-.3905 1.0237-.3905 1.4142 0l6 6c.3905.3905.3905 1.0237 0 1.4142-.3905.3905-1.0237.3905-1.4142 0L13 3.4142z"/></symbol>
+  <symbol id="icon-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
   <symbol id="icon-star" viewBox="0 0 24 24"><path d="M6.7998 23.3169c-1.0108.4454-2.1912-.0129-2.6367-1.0237a2 2 0 0 1-.1596-1.008l.5724-5.6537L.7896 11.394c-.736-.8237-.6648-2.088.1588-2.824a2 2 0 0 1 .9093-.4633l5.554-1.2027 2.86-4.9104c.556-.9545 1.7804-1.2776 2.7349-.7217a2 2 0 0 1 .7216.7217l2.86 4.9104 5.554 1.2027c1.0796.2338 1.7652 1.2984 1.5314 2.378a2 2 0 0 1-.4633.9093l-3.7863 4.2375.5724 5.6538c.1113 1.0989-.6894 2.08-1.7883 2.1912a2 2 0 0 1-1.008-.1596L12 21.0254l-5.2002 2.2915z"/></symbol>
   <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M11 11V3c0-.5523.4477-1 1-1s1 .4477 1 1v8h8c.5523 0 1 .4477 1 1s-.4477 1-1 1h-8v8c0 .5523-.4477 1-1 1s-1-.4477-1-1v-8H3c-.5523 0-1-.4477-1-1s.4477-1 1-1h8z"/></symbol>
   <symbol id="icon-minus" viewBox="0 0 24 24"><path d="M3 13h18c.5523 0 1-.4477 1-1s-.4477-1-1-1H3c-.5523 0-1 .4477-1 1s.4477 1 1 1z"/></symbol>
@@ -578,6 +586,10 @@
     </button>
   </div>
   <div class="offcanvas__body appliance-search" data-appliance-search>
+    <section class="my-appliances my-appliances--panel" data-my-appliances-section aria-label="Gespeicherte Geräte im Such-Assistenten" hidden>
+      <h3 class="appliance-search__title">Meine Geräte</h3>
+      <ul class="my-appliances__list" data-my-appliances></ul>
+    </section>
     <h2 class="appliance-search__title" id="appliance-title">Gerätenummer eingeben &amp; Ersatzteil finden</h2>
     <p class="appliance-search__subtitle">Nur über die Eingabe der Gerätenummer können Sie feststellen ob ein Ersatzteil passend ist oder nicht.</p>
 

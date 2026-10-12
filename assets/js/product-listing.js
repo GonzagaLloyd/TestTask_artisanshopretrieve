@@ -7,7 +7,8 @@
  *     <select data-listing-sort>   <ul data-listing-items> <li data-name data-price data-manufacturer data-category>
  *     <nav data-listing-pagination>
  *
- * Checked values of one filter group are OR-ed, groups are AND-ed.
+ * Checked values of one filter group are OR-ed, groups are AND-ed. Optional price range
+ * (<input data-listing-price="min|max">) and reset button (<button data-listing-reset>).
  *
  * All items are in the page; this only reorders and hides them. The current page is
  * kept in the URL hash (#p2) so the browser back button returns to it.
@@ -26,6 +27,9 @@
     var empty = ns.qs('[data-listing-empty]', root);
     var search = ns.qs('[data-listing-search]', root);
     var position = ns.qs('[data-listing-position]', root);
+    var priceMin = ns.qs('[data-listing-price="min"]', root);
+    var priceMax = ns.qs('[data-listing-price="max"]', root);
+    var reset = ns.qs('[data-listing-reset]', root);
     var term = '';
     var size = parseInt(root.getAttribute('data-page-size'), 10) || 24;
     var page = parseInt((window.location.hash.match(/^#p(\d+)$/) || [])[1], 10) || 1;
@@ -47,11 +51,14 @@
         var key = f.getAttribute('data-listing-filter');
         (active[key] = active[key] || []).push(f.value);
       });
+      var min = priceMin && priceMin.value !== '' ? parseFloat(priceMin.value) : null;
+      var max = priceMax && priceMax.value !== '' ? parseFloat(priceMax.value) : null;
       var sorted = compare[sort.value] ? original.slice().sort(compare[sort.value]) : original.slice();
       var visible = sorted.filter(function (el) {
         return Object.keys(active).every(function (key) { return active[key].indexOf(el.dataset[key]) !== -1; }) &&
           (!term || (el.dataset.number + el.dataset.name).toLowerCase().replace(/\s+/g, '').indexOf(term) !== -1) &&
-          (!position || !position.value || el.dataset.position === position.value);
+          (!position || !position.value || el.dataset.position === position.value) &&
+          (min === null || price(el) >= min) && (max === null || price(el) <= max);
       });
       var pages = Math.max(1, Math.ceil(visible.length / size));
       page = Math.min(page, pages);
@@ -112,6 +119,25 @@
     }
     if (position) {
       position.addEventListener('change', function () {
+        page = 1;
+        render(false);
+      });
+    }
+    [priceMin, priceMax].forEach(function (input) {
+      if (input) {
+        input.addEventListener('input', function () {
+          page = 1;
+          render(false);
+        });
+      }
+    });
+    if (reset) {
+      reset.addEventListener('click', function () {
+        filters.forEach(function (f) { f.checked = false; });
+        [priceMin, priceMax].forEach(function (input) { if (input) { input.value = ''; } });
+        if (position) {
+          position.value = '';
+        }
         page = 1;
         render(false);
       });

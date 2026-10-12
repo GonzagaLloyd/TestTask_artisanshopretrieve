@@ -101,6 +101,8 @@
         return '<li><a href="' + e(item.path) + '">' + e(item.name) + '</a> <span>' + item.qty + ' × ' + ns.cart.chf(item.price) + '</span></li>';
       }).join('') + '</ul>' +
       '<p class="order-card__total">Gesamtsumme: <strong>' + ns.cart.chf(order.total) + '</strong> · ' + e(PAYMENT_LABELS[order.payment] || order.payment) + '</p>' +
+      '<p class="order-card__actions"><a class="btn btn--outline btn--sm" href="/bestellung-verfolgen?order=' + encodeURIComponent(order.number) + '">Bestellung verfolgen</a> ' +
+      '<button class="btn btn--secondary btn--sm" type="button" data-reorder="' + e(order.number) + '">Erneut bestellen</button></p>' +
     '</article>';
   }
 
@@ -110,6 +112,8 @@
     addressHtml: addressHtml,
     orderHtml: orderHtml,
     saveOrder: function (order) {
+      // device-wide log: lets guests track and re-order too (order-tracking.js)
+      ns.storage.set('artisanshop.orders', [order].concat(ns.storage.get('artisanshop.orders') || []).slice(0, 50));
       var account = current();
       if (account) {
         account.orders = [order].concat(account.orders || []);
@@ -206,7 +210,8 @@
         '<section class="account-card"><h2>Persönliches Profil</h2><p>' + e(user.firstName + ' ' + user.lastName) + '<br>' + e(user.email) + '</p><a href="/account/profile">Profil ändern</a></section>' +
         '<section class="account-card"><h2>Standard-Zahlungsart</h2><p>' + e(PAYMENT_LABELS[user.payment] || '–') + '</p><a href="/account/payment">Zahlungsart ändern</a></section>' +
         '<section class="account-card"><h2>Standard-Adresse</h2><p>' + (address ? addressHtml(address) : 'Noch keine Adresse hinterlegt.') + '</p><a href="/account/address">Adressen verwalten</a></section>' +
-        '<section class="account-card account-card--wide"><h2>Letzte Bestellung</h2>' + (last ? orderHtml(last) : '<p>Sie haben noch keine Bestellungen.</p>') + '</section>';
+        '<section class="account-card account-card--wide"><h2>Letzte Bestellung</h2>' + (last ? orderHtml(last) : '<p>Sie haben noch keine Bestellungen.</p>') + '</section>' +
+        '<section class="account-card account-card--wide" data-my-appliances-section hidden><h2>Meine Geräte</h2><ul class="my-appliances__list" data-my-appliances></ul></section>';
     }
     var profileForm = ns.qs('[data-profile-form]');
     if (profileForm) {

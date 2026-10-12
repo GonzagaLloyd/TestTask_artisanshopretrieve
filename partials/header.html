@@ -37,6 +37,11 @@
         Gerätenummer<br>bestimmen
       </button>
 
+      <a class="site-header__action site-header__action--wishlist" href="/wishlist" aria-label="Merkliste" title="Merkliste">
+        <svg class="icon icon--cart" aria-hidden="true"><use href="#icon-heart"></use></svg>
+        <span class="cart-count" data-wishlist-count hidden>0</span>
+      </a>
+
       <button class="site-header__action site-header__action--cart" type="button" data-offcanvas-open="offcanvas-cart" aria-controls="offcanvas-cart" aria-expanded="false" aria-label="Warenkorb" title="Warenkorb">
         <svg class="icon icon--cart"><use href="#icon-cart"></use></svg>
         <span class="cart-count" data-cart-count hidden>0</span>
@@ -57,6 +62,8 @@
             <li><a href="/account/address">Adressen</a></li>
             <li><a href="/account/payment">Zahlungsarten</a></li>
             <li><a href="/account/order">Bestellungen</a></li>
+            <li><a href="/bestellung-verfolgen">Bestellung verfolgen</a></li>
+            <li><a href="/wishlist">Merkliste</a></li>
             <li><a href="/account/mollie/subscriptions">Abonnements</a></li>
             <li data-user-only hidden><button class="link-btn" type="button" data-logout>Abmelden</button></li>
           </ul>

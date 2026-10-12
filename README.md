@@ -54,6 +54,7 @@ TestTask/
 │   ├── pages.json             Category, brand, listing, appliance, guide and service pages by path
 │   ├── products.json          Products (detail pages merged with data from listings)
 │   └── images.json            Original image URL → file in assets/media/
+├── tools/fetch-media.py       Recovers the images of content/images.json from the archive (see below)
 ├── package.json               `npm run build`, `npm run serve`, `npm run validate`
 ├── README.md
 └── assets/
@@ -66,8 +67,10 @@ TestTask/
     │   │                      text/image blocks, review slider, contact, partner logos,
     │   │                      appliance search, cart
     │   ├── home.css           Page specific: hero banner, step navigation, sticky bar
-    │   └── pages.css          Sub pages: breadcrumb, category hero, product list and detail,
-    │                          archived text, search, forms, account, checkout
+    │   ├── pages.css          Sub pages: breadcrumb, category hero, product list and detail,
+    │   │                      archived text, search, forms, account, checkout
+    │   └── features.css       Added functionality: wishlist, recently viewed, suggestions,
+    │                          order tracking, saved appliances, price filter
     ├── data/
     │   ├── navigation.js      Category tree of the main menu (321 entries, 3 levels)
     │   └── reviews.js         Customer reviews for the carousel
@@ -94,6 +97,11 @@ TestTask/
     │   ├── product-listing.js Manufacturer filter, sorting, pagination of product lists
     │   ├── product-detail.js  Image gallery, filter of the compatible-appliances table
     │   ├── search-page.js     /search over dist/assets/data/search-index.json
+    │   ├── search-suggest.js  Live suggestions below every search field
+    │   ├── wishlist.js        Merkliste (heart buttons, /wishlist page, header badge)
+    │   ├── recently-viewed.js "Zuletzt angesehen" strip
+    │   ├── my-appliances.js   "Meine Geräte": saved appliances
+    │   ├── order-tracking.js  /bestellung-verfolgen and "Erneut bestellen"
     │   └── main.js            Entry point: starts every module after DOMContentLoaded
     ├── images/                Logo, hero, category/brand images, icons (from the archive)
     └── media/                 Product, category and article images (from the archive, WebP)
@@ -136,6 +144,35 @@ every page.
 
 Products that only appear in listings (no archived detail page) still get a detail page from
 the listing data (name, numbers, price, image), so no product link is dead.
+
+## Added functionality
+
+Everything the old shop did on the client is rebuilt (see "Sub pages"). On top of that the
+following functions were added. None of them needs a backend: the data stays in the visitor's
+`localStorage`, exactly like cart and account.
+
+| Function | Where | How it works |
+|---|---|---|
+| **Merkliste** (wishlist) | Heart on every product card and product page, header icon with counter, `/wishlist` | Saves products; add to cart or remove from the list; synchronised between browser tabs |
+| **Zuletzt angesehen** | Product pages, cart, `/wishlist` | Remembers the last 12 opened products |
+| **Live search suggestions** | Header search, search page, appliance-number panel | Matches devices, products (name, article number, spare-part number) and pages while typing; arrow keys + Enter; the appliance panel suggests devices only |
+| **Meine Geräte** | "Gerät speichern" on every appliance page; shown in the appliance panel, `/wishlist` and the account overview | One tap to the spare-part list of a saved device |
+| **Bestellung verfolgen / Erneut bestellen** | `/bestellung-verfolgen`, account orders | Looks up orders placed in this browser (guests too); the shipping status is a **demo** derived from the age of the order; re-order puts all items back into the cart |
+| **Price filter and reset** | Every product list and the search results | Price range (CHF) next to the manufacturer filter, "Filter zurücksetzen" |
+| **Page titles** | All generated pages | Archived pages that only carried the shop name as title now use their heading |
+
+## Recovering the images
+
+`content/images.json` maps the original image URLs to files in `assets/media/`. The archive
+holds only part of them (about 4,300 of 8,100 – the rest was never captured, those products show
+the placeholder), often as another size variant. `tools/fetch-media.py` resolves each URL through
+the archive index, downloads it with a persistent connection, converts it to WebP (max. 900 px)
+and skips files that exist already, so it can be restarted any time:
+
+```
+pip install pillow
+python tools/fetch-media.py        # about 20 minutes
+```
 
 ## Editing it
 
